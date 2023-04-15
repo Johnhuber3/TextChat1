@@ -1,21 +1,10 @@
-const express = require('express');
-const http = require('http');
-const WebSocket = require('ws');
+import { WebSocketServer } from "ws";
 
-const port = 3001;
-const server = http.createServer(express);
-const wss = new WebSocket.Server({ server });
-
-wss.on('connection', function connection(ws) {
-    ws.on('message', function incoming(data) {
-        wss.clients.forEach(function each(client) {
-            if (client !== ws && client.readyState === WebSocket.OPEN) {
-                client.send(data);
-            }
-        })
-    })
-})
-
-server.listen(port, function() {
-    console.log(`Server is listening on ${port}!`)
+const wss = new WebSocketServer({ port:8080 });
+wss.on('connection', client => {
+    client.on('message', (message,isBinary) => {
+        [...wss.clients]
+            .filter(c => c !== client)
+            .forEach(c => c.send(isBinary ? message.toString() : message));
+    });
 })
