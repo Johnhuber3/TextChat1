@@ -2,8 +2,8 @@
     box-sizing: border-box;
 }
 body{
-    background-color: #222;
-    color: #fff;
+    background-color: #000000;
+    color: #ffffff;
     font-family: sans-serif;
 }
 form {
@@ -14,12 +14,12 @@ form {
     padding:20px;
 }
 input{
-    border:1px solid #555;
-    background-color: transparent;
+    border:2px solid #ffffff;
+    background-color: rgb(49, 47, 47);
     width: 100%;
     padding:10px;
     border-radius:20px;
-    color:#fff;
+    color:#ffffff;
 }
 .bubble{
     border-radius: 20px;
