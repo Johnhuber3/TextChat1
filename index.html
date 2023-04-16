@@ -11,7 +11,10 @@
 <body>
     <div id="messages"></div>
     <form>
-        <input type="text" placeholder="Type something simple...">
+        <div style="display: flex; gap: 5px;">
+            <input type="text" placeholder="Type something simple...">
+            <button type="submit" style="color: white; background-color: blue; border: 2px; border-radius: 20px;">Send</button>
+        </div>
     </form>
     <script>
         function showMessage(text,isMine = false) {
