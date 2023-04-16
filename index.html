@@ -9,7 +9,10 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div id="messages"></div>
+    <div class="background-image"></div>
+    <div class="messages-wrapper">
+        <div id="messages"></div>
+    </div>
     <form>
         <div style="display: flex; gap: 5px;">
             <input type="text" placeholder="Type something simple...">
@@ -18,23 +21,40 @@
     </form>
     <script>
         function showMessage(text,isMine = false) {
-          document.getElementById("messages").innerHTML += `
-            <div class="message-row ${isMine?'mine':'theirs'}">
-                <div class="bubble">${text}</div>
-            </div>
-          `;
+            const messageRow = document.createElement('div');
+            messageRow.classList.add('message-row', isMine ? 'mine' : 'theirs');
+            const bubble = document.createElement('div');
+            bubble.classList.add('bubble');
+            bubble.textContent = text;
+            messageRow.appendChild(bubble);
+            const messages = document.getElementById("messages");
+            messages.appendChild(messageRow);
+            messages.scrollTop = messages.scrollHeight;
         }
+
         const ws = new WebSocket('ws://localhost:8080');
+
         ws.addEventListener('message', ev => {
-          ev.data.text().then(showMessage);
+            ev.data.text().then(showMessage);
         });
+        
         document.querySelector('form').onsubmit = ev => {
-          ev.preventDefault();
-          const input = document.querySelector('input');
-          ws.send(input.value);
-          showMessage(input.value, true);
-          input.value = '';
+            ev.preventDefault();
+            const input = document.querySelector('input');
+            ws.send(input.value);
+            showMessage(input.value, true);
+            input.value = '';
         }
+
+        const messages = document.getElementById("messages");
+        messages.addEventListener('scroll', () => {
+            const atBottom = messages.scrollHeight - messages.scrollTop === messages.clientHeight;
+            if (!atBottom) {
+            messages.classList.add('scrolling');
+            } else {
+            messages.classList.remove('scrolling');
+            }
+        });
     </script>
 </body>
 </html>

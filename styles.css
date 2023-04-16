@@ -5,10 +5,8 @@ body{
     background-color: #000000;
     color: #ffffff;
     font-family: sans-serif;
-    background-image: url('KoenigseggSmallMain.webp');
-    background-repeat: no-repeat;
-    background-size: 256px 256px;
-    background-position: center 275px;
+    margin: 0;
+    padding: 0;
 }
 
 .background-image {
@@ -23,11 +21,27 @@ body{
     background-position: center 275px;
 }
 
+.messages-wrapper {
+    position: absolute;
+    top: 0;
+    bottom: 80px; /* adjust this value as needed */
+    left: 0;
+    right: 0;
+    overflow-y: scroll;
+    padding: 20px;
+}
+
+#messages {
+    margin: 0;
+    padding: 0;
+}
+
 form {
     position:fixed;
     bottom:0;
     left:0;
     right:0;
+    height: 80px;
     padding:20px;
 }
 input{
